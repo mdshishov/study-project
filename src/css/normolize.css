@@ -1,0 +1,13 @@
+[hidden] {
+  display: none;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+  border: none;
+  outline: none;
+  background: none;
+  line-height: 1.36;
+}
