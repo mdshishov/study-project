@@ -5,9 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>skb</title>
+    <script src="./src/js/script.js"></script>
     <link rel="stylesheet" href="./src/css/fonts.css">
     <link rel="stylesheet" href="./src/css/normolize.css">
-    <link rel="stylesheet" href="./src/css/style.css">
+    <link rel="stylesheet" href="./src/css/basic.css">
+    <link rel="stylesheet" href="./src/css/main.css">
+    <link rel="stylesheet" href="./src/css/table.css">
 </head>
 
 <body>
@@ -18,77 +21,95 @@
             </a>
             <div class="header__search">
                 <input type="text" class="header__search__input" placeholder="Введите запрос">
-                <div class="header__search__icon"></div>
+                <button class="header__search__button">
+                    <img src="./src/icons/search.svg" alt="Поиск" class="header__search__icon">
+                </button>
             </div>
         </div>
     </header>
     <main class="main">
         <div class="main__content">
             <h1 class="main__title">Клиенты</h1>
-            <table class="main__table">
+            <table class="table main__table">
                 <thead class="table__header">
-                    <tr class="table__hrow">
-                        <th class="table__hcell">
+                    <tr class="table__row table__row_header">
+                        <th class="table__cell table__cell_header table__cell_header_id">
                             ID<!--
                             --><div class="icon--arrow icon--arrow-down"></div>
                         </th>
-                        <th class="table__hcell">
+                        <th class="table__cell table__cell_header table__cell_header_full-name">
                             Фамилия Имя Отчество<!--
                             --><div class="icon--arrow icon--arrow-down"></div>
                         </th>
-                        <th class="table__hcell">
+                        <th class="table__cell table__cell_header table__cell_header_creation-time">
                             Дата и время создания<!--
                             --><div class="icon--arrow icon--arrow-down"></div></th>
-                        <th class="table__hcell">
-                            Последнее изменение<!--
+                        <th class="table__cell table__cell_header table__cell_header_last-change-time">
+                            Последния изменения<!--
                             --><div class="icon--arrow icon--arrow-down"></div>
                         </th>
-                        <th class="table__hcell">
+                        <th class="table__cell table__cell_header table__cell_header_contacts">
                             Контакты
                         </th>
-                        <th class="table__hcell">
+                        <th class="table__cell table__cell_header table__cell_header_actions">
                             Действия
                         </th>
                     </tr>
                 </thead>
                 <tbody class="table__body">
-                    <tr class="table__brow">
-                        <td class="table__bcell table__bcell--id">
+                    <tr class="table__row table__row_body">
+                        <td class="table__cell table__cell_body table__cell_body_id">
                             12345678
                         </td>
-                        <td class="table__bcell table__bcell--name">
-                            Фамилия Имя Отчество
+                        <td class="table__cell table__cell_body table__cell_body_full-name">
+                            Иванов Иван Иванович
                         </td>
-                        <td class="table__bcell table__bcell--date">
-                            Дата и время создания
-                        <td class="table__bcell table__bcell--lchange">
-                            Последнее изменение
+                        <td class="table__cell table__cell_body table__cell_body_creation-time">
+                            21.02.2021 <span class="text-light">12:41</span>
+                        <td class="table__cell table__cell_body table__cell_body_last-change-time">
+                            21.02.2021 <span class="text-light">12:41</span>
                         </td>
-                        <td class="table__bcell table__bcell--contacts">
+                        <td class="table__cell table__cell_body table__cell_body_contacts">
                             Контакты
                         </td>
-                        <td class="table__bcell table__bcell--actions">
-                            Действия
+                        <td class="table__cell table__cell_body table__cell_body_actions">
+                            <div>
+                                <button class="actions__button actions__button--edit">
+                                    <div class="icon icon--edit"></div><!--
+                                    -->Изменить
+                                </button>
+                                <button class="actions__button actions__button--delete">
+                                    <div class="icon icon--delete"></div><!--
+                                    -->Удалить
+                                </button>
+                            </div>
                         </td>
                     </tr>
-                    <tr class="table__brow">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                    <tr class="table__row table__row_body">
+                        <td class="table__cell table__cell_body"></td>
+                        <td class="table__cell table__cell_body"></td>
+                        <td class="table__cell table__cell_body"></td>
+                        <td class="table__cell table__cell_body"></td>
+                        <td class="table__cell table__cell_body"></td>
+                        <td class="table__cell table__cell_body"></td>
+                    </tr>
+                    <tr class="table__row table__row_body">
+                        <td class="table__cell table__cell_body"></td>
+                        <td class="table__cell table__cell_body"></td>
+                        <td class="table__cell table__cell_body"></td>
+                        <td class="table__cell table__cell_body"></td>
+                        <td class="table__cell table__cell_body"></td>
+                        <td class="table__cell table__cell_body"></td>
                     </tr>
                 </tbody>
             </table>
             <div class="main__load"></div>
-            <button class="main__btn"> <svg  width="23" height="16" viewBox="0 0 23 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M14.5 8C16.71 8 18.5 6.21 18.5 4C18.5 1.79 16.71 0 14.5 0C12.29 0 10.5 1.79 10.5 4C10.5 6.21 12.29 8 14.5 8ZM5.5 6V3H3.5V6H0.5V8H3.5V11H5.5V8H8.5V6H5.5ZM14.5 10C11.83 10 6.5 11.34 6.5 14V16H22.5V14C22.5 11.34 17.17 10 14.5 10Z" fill="#9873FF"/>
-                </svg>
-                <span>Добавить клиента</span>
-            </button>
-
         </div>
+        <button class="main__btn"> <svg  width="23" height="16" viewBox="0 0 23 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14.5 8C16.71 8 18.5 6.21 18.5 4C18.5 1.79 16.71 0 14.5 0C12.29 0 10.5 1.79 10.5 4C10.5 6.21 12.29 8 14.5 8ZM5.5 6V3H3.5V6H0.5V8H3.5V11H5.5V8H8.5V6H5.5ZM14.5 10C11.83 10 6.5 11.34 6.5 14V16H22.5V14C22.5 11.34 17.17 10 14.5 10Z" fill="#9873FF"/>
+            </svg>
+            <span>Добавить клиента</span>
+        </button>
     </main>
 
 </body>

@@ -1,0 +1,78 @@
+:root {
+    --green: #34C759;
+    --orange: #E6B127;
+    --red: #F06A4D;
+    --firm: #9873FF;
+    --firm-light: #B89EFF;
+    --firm-dark: #8052FF;
+    --grey: #C8C5D1;
+    --txt-grey: #B0B0B0;
+    --black: #333333;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table__body {
+    box-shadow: 0px 1px 8px rgba(176, 190, 197, 0.32);
+    border-radius: 15px;
+}
+
+.table__row_header {
+    padding: 0 10px;
+}
+
+.table__row_body {
+    background-color: white;
+    padding: 0 10px;
+    margin-bottom: 1px;
+    height: 60px;
+    border-bottom: 1px solid var(--grey);
+}
+.table__row_body:last-child {
+    border: none;
+}
+.table__row_body:first-child .table__cell:first-child {
+    border-radius: 15px 0px 0px 0px;
+}
+.table__row_body:first-child .table__cell:last-child {
+    border-radius: 0px 15px 0px 0px;
+}
+.table__row_body:last-child .table__cell:last-child {
+    border-radius: 0px 0px 15px 0px;
+}
+.table__row_body:last-child .table__cell:first-child {
+    border-radius: 0px 0px 0px 15px;
+}
+
+.table__cell {
+    padding: 10px 10px;
+    text-align: left;
+}
+.table__cell:first-child {
+    padding-left: 20px;
+}
+.table__cell:last-child {
+    padding-right: 20px;
+}
+
+.actions__button {
+    display: block;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--black);
+    transition: color 0.3s;
+    width: max-content;
+}
+.actions__button:hover {
+    cursor: pointer;
+}
+
+.actions__button--edit:hover {
+    color: var(--firm);
+}
+.actions__button--delete:hover {
+    color: var(--red);
+}

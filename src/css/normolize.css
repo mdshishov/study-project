@@ -1,3 +1,15 @@
+:root {
+  --green: #34C759;
+  --orange: #E6B127;
+  --red: #F06A4D;
+  --firm: #9873FF;
+  --firm-light: #B89EFF;
+  --firm-dark: #8052FF;
+  --grey: #C8C5D1;
+  --txt-grey: #B0B0B0;
+  --black: #333333;
+}
+
 [hidden] {
   display: none;
 }
