@@ -11,18 +11,42 @@
 }
 
 .button {
+    display: inline-block;
     height: 44px;
-    padding: auto 35px;
+    padding: 0px 35px;
     font-size: 14px;
     font-weight: 600;
+    transition: color 0.3s, background-color 0.3s;
 }
-.button_primary {
+.button:hover {
+    cursor: pointer;
+    background-color: var(--firm-light);
+    color: #ffffff;
+}
+.button:active {
+    color: #ffffff;
+    background-color: var(--firm-dark);
+}
 
+.button_primary {
+    color: #ffffff;
+    background-color: var(--firm);
+}
+.button_primary:disabled {
+    background-color: var(--grey);
 }
 
 .button_secondary {
-
+    background-color: transparent;
+    border: 1px solid var(--firm);
+    color: var(--firm);
 }
+.button_secondary:disabled {
+    color: var(--grey);
+    border-color: var(--grey);
+}
+
+
 
 .text-light {
     color: var(--txt-grey);
