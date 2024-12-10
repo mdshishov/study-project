@@ -16,7 +16,28 @@
 
 <body>
     <div class="modal" hidden>
-        <form class="modal__form"></form>
+        <form class="form">
+            <div class="form__name-inputs"></div>
+            <h2 class="form__header">
+                Изменение данных
+                <span class="header_text-light"></span>
+            </h2>
+            <div class="form__name-input-content">
+                <label></label>
+                <input class="form__name-input" type="text" required>
+            </div>
+            <div class="form__contacts">
+                <div class="form__contacts__input-content">
+                    <input class="form__contacts__input" type="text">
+                    <button class="form__contacts__button">
+                        <img src="" alt="Крестик" class="">
+                    </button>
+                </div>
+            </div>
+            <p class="form__error-message">ggg</p>
+            <button class="button_primary form__submit-button">gg</button>
+            <button class="form__cancel-button">hh</button>
+        </form>
     </div>
     <aside class="error" hidden>Упс... Кажется, что-то пошло нет так. Пожалуйста, перезагрузите страницу.</aside>
     <header class="header">
