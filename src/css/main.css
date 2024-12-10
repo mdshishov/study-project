@@ -156,13 +156,13 @@ body {
 
 @media (max-width: 1226px) {
     .main__content {
-        background-color: purple;
+        /* background-color: purple; */
     }
 }
 
 @media (max-width: 1024px) {
     .main__content {
-        background-color: red;
+        /* background-color: red; */
     }
 }
 
@@ -192,6 +192,6 @@ body {
 
     .main__content {
         padding: 0px 10px;
-        background-color: green;
+        /* background-color: green; */
     }
 }

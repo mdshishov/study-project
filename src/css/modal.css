@@ -1,3 +1,15 @@
+:root {
+    --green: #34C759;
+    --orange: #E6B127;
+    --red: #F06A4D;
+    --firm: #9873FF;
+    --firm-light: #B89EFF;
+    --firm-dark: #8052FF;
+    --grey: #C8C5D1;
+    --txt-grey: #B0B0B0;
+    --black: #333333;
+}
+
 .modal {
     position: fixed;
     z-index: 100;
@@ -17,4 +29,114 @@
     width: 100%;
     max-width: 450px;
     background-color: white;
+    position: relative;
+}
+
+.form__close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    display: block;
+    width: 29px;
+    height: 29px;
+    background-image: url("../icons/close.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.form__close-button:hover {
+    cursor: pointer;
+}
+
+.form__name-inputs {
+    padding: 24px 30px 26px;
+}
+
+.form__header {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--black);
+    margin-bottom: 15px;
+}
+.header_text-light {
+    font-weight: 400;
+    color: var(--txt-grey);
+    font-size: 12px;
+    margin-left: 9px;
+}
+
+.form__name-input-content {
+    width: 100%;
+    height: 41px;
+    margin-bottom: 15px;
+    position: relative;
+}
+.form__name-input-content:last-child {
+    margin-bottom: 0px;
+}
+
+.form__name-label {
+    position: absolute;
+    top: 16px;
+    left: 0px;
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--grey);
+    transition: all 0.3s;
+    pointer-events: none;
+}
+
+.form__name-input:focus ~ .form__name-label,
+.form__name-label_small {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    font-size: 10px;
+}
+
+.form__name-input {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    padding-top: 10px;
+    border-bottom: 1px solid var(--grey);
+    font-size: 14px;
+    font-weight: 600;
+    vertical-align: bottom;
+}
+
+.form__name-input__underline {
+    display: block;
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    height: 2px;
+    background-color: var(--firm);
+    width: 0px;
+    transition: width 0.3s;
+}
+.form__name-input:focus ~ .form__name-input__underline {
+    width: 100%;
+}
+
+.form__contacts__select__toggle::after {
+    content: '';
+
+}
+
+.form__contacts__select__arrow {
+    width: 12px;
+    height: 12px;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    top: 13px;
+    left: 8px;
+}
+.arrow-icon {
+    background-image: url('../icons/select-arrow.svg');
+    transform: rotateX(0deg);
+    transition: transform 0.3s;
+}
+.arrow-icon_up {
+    transform: rotateX(180deg);
 }

@@ -16,24 +16,46 @@
 
 <body>
     <div class="modal" hidden>
-        <form class="form">
-            <div class="form__name-inputs"></div>
-            <h2 class="form__header">
-                Изменение данных
-                <span class="header_text-light"></span>
-            </h2>
-            <div class="form__name-input-content">
-                <label></label>
-                <input class="form__name-input" type="text" required>
-            </div>
-            <div class="form__contacts">
-                <div class="form__contacts__input-content">
-                    <input class="form__contacts__input" type="text">
-                    <button class="form__contacts__button">
-                        <img src="" alt="Крестик" class="">
-                    </button>
+        <form class="form" id="form">
+            <button type="button" class="form__close-button"></button>
+            <fieldset name="name-inputs" class="form__name-inputs">
+                <h2 class="form__header">
+                    Изменить данные<span class="header_text-light">ID: 2345678</span>
+                </h2>
+                <div class="form__name-input-content">
+                    <input name="name" class="form__name-input" type="text" required>
+                    <label class="form__name-label">Фамилия<span class="text-firm-color">*</span></label>
+                    <span class="form__name-input__underline"></span>
                 </div>
-            </div>
+                <div class="form__name-input-content">
+                    <input name="surname" class="form__name-input" type="text" required>
+                    <label class="form__name-label">Имя<span class="text-firm-color">*</span></label>
+                    <span class="form__name-input__underline"></span>
+                </div>
+                <div class="form__name-input-content">
+                    <input name="lastName" class="form__name-input" type="text">
+                    <label class="form__name-label">Отчество<span class="text-firm-color">*</span></label>
+                    <span class="form__name-input__underline"></span>
+                </div>
+            </fieldset>
+            <fieldset name="contacts" class="form__contacts form__contacts_no-inputs">
+                <div class="form__contacts__input-content">
+                    <div class="form__contacts__select">
+                        <button data-select="phone" class="form__contacts__select__toggle">
+                            Телeфон
+                            <div class="arrow-icon arrow-icon_up form__contacts__select__arrow"></div>
+                        </button>
+
+                        <div class="form__contacts__select__options">
+                            <div data-option="phone" class="form__contacts__select__option">
+                                Телефон
+                            </div>
+                        </div>
+                    </div>
+                    <input class="form__contacts__input" type="text">
+                    <button class="form__contacts__delete-button"></button>
+                </div>
+            </fieldset>
             <p class="form__error-message">ggg</p>
             <button class="button_primary form__submit-button">gg</button>
             <button class="form__cancel-button">hh</button>

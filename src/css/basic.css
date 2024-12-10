@@ -46,8 +46,10 @@
     border-color: var(--grey);
 }
 
-
-
 .text-light {
     color: var(--txt-grey);
+}
+
+.text-firm-color {
+    color: var(--firm);
 }
