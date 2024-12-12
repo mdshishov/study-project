@@ -60,7 +60,22 @@ function showModal(data = null) {
   nameInputsField.classList.add('form__name-inputs');
   form.append(nameInputsField);
 
-  
+  const formHeader = document.createElement('h2');
+  formHeader.classList.add('form__header');
+  if (data) {
+    const textNode = document.createTextNode('Изменить данные');
+    const span = document.createElement('span');
+    span.classList.add('header_text-light');
+    span.textContent = `ID: ${data.id}`;
+    formHeader.append(textNode, span);
+  } else {
+    formHeader.textContent = 'Новый клиент';
+  }
+  nameInputsField.append(formHeader);
+
+  ['name', 'surname', 'lastName'].forEach((inputName) => {
+    
+  })
 
   document.body.append(modal);
 
