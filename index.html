@@ -16,7 +16,7 @@
 
 <body>
     <div class="modal" hidden>
-        <form class="form" id="form">
+        <form id="form" class="form">
             <button type="button" class="form__close-button"></button>
             <fieldset name="name-inputs" class="form__name-inputs">
                 <h2 class="form__header">
@@ -34,34 +34,47 @@
                 </div>
                 <div class="form__name-input-content">
                     <input name="lastName" class="form__name-input" type="text">
-                    <label class="form__name-label">Отчество<span class="text-firm-color">*</span></label>
+                    <label class="form__name-label">Отчество</label>
                     <span class="form__name-input__underline"></span>
                 </div>
             </fieldset>
-            <fieldset name="contacts" class="form__contacts form__contacts_no-inputs">
+            <fieldset name="contacts" class="form__contacts">
                 <div class="form__contacts__input-content">
-                    <div class="form__contacts__select">
-                        <button data-select="phone" class="form__contacts__select__toggle">
+                    <div data-select class="form__contacts__select">
+                        <button type="button" data-option="phone" class="form__contacts__select__toggle">
                             Телeфон
-                            <div class="arrow-icon arrow-icon_up form__contacts__select__arrow"></div>
                         </button>
-
-                        <div class="form__contacts__select__options">
-                            <div data-option="phone" class="form__contacts__select__option">
+                        <div data-arrow-icon class="arrow-icon form__contacts__select__arrow"></div>
+                        <div data-select-options class="form__contacts__select__options closed">
+                            <button data-option="phone" type="button" class="form__contacts__select__option">
                                 Телефон
-                            </div>
+                            </button>
+                            <button data-option="phone" type="button" class="form__contacts__select__option">
+                                Телефон
+                            </button>
+                            <button data-option="phone" type="button" class="form__contacts__select__option">
+                                Телефон
+                            </button>
                         </div>
                     </div>
-                    <input class="form__contacts__input" type="text">
-                    <button class="form__contacts__delete-button"></button>
+                    <input class="form__contacts__input" type="text" required placeholder="Введите данные">
+                    <button type="button" class="form__contacts__delete-button"></button>
                 </div>
+                <button type="button" class="form__contacts__add-button">
+                    <span>Добавить контакт</span>
+                </button>
             </fieldset>
-            <p class="form__error-message">ggg</p>
-            <button class="button_primary form__submit-button">gg</button>
-            <button class="form__cancel-button">hh</button>
+            <fieldset name="buttons" class="form__buttons">
+                <p id="error-message" class="form__error-message">
+                    Текст ошибки
+                </p>
+                <button id="submit-button" class="button button_primary form__submit-button">
+                    <span>Сохранить</span>
+                </button>
+                <button type="button" class="form__cancel-button">Удалить клиента</button>
+            </fieldset>
         </form>
     </div>
-    <aside class="error" hidden>Упс... Кажется, что-то пошло нет так. Пожалуйста, перезагрузите страницу.</aside>
     <header class="header">
         <div class="header__content">
             <a href="#" class="header__link">
@@ -76,8 +89,8 @@
         </div>
     </header>
     <main class="main">
+        <h1 class="main__title">Клиенты</h1>
         <div class="main__content">
-            <h1 class="main__title">Клиенты</h1>
             <table class="table main__table">
                 <thead class="table__header">
                     <tr class="table__row table__row_header">

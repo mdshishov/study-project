@@ -109,6 +109,15 @@ body {
     overflow: hidden;
 }
 
+.main__title {
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--black);
+    margin-bottom: 26px;
+    width: 100%;
+    padding: 0px 20px;
+}
+
 .main__content {
     padding: 0px 20px;
     width: 100%;
@@ -121,12 +130,7 @@ body {
     display: none;
 }
 
-.main__title {
-    font-weight: 700;
-    font-size: 24px;
-    color: var(--black);
-    margin-bottom: 26px;
-}
+
 
 .main__table {
     min-width: 728px;
@@ -187,6 +191,7 @@ body {
 
     .main__title {
         font-size: 18px;
+        padding: 0px 10px;
         margin-bottom: 20px;
     }
 

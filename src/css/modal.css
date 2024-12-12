@@ -22,6 +22,7 @@
     padding: 10px;
     justify-content: center;
     align-items: center;
+    overflow-y: auto;
 
 }
 
@@ -30,6 +31,7 @@
     max-width: 450px;
     background-color: white;
     position: relative;
+    overflow: hidden;
 }
 
 .form__close-button {
@@ -62,6 +64,7 @@
     color: var(--txt-grey);
     font-size: 12px;
     margin-left: 9px;
+    text-wrap: nowrap;
 }
 
 .form__name-input-content {
@@ -118,25 +121,223 @@
     width: 100%;
 }
 
-.form__contacts__select__toggle::after {
-    content: '';
+.form__contacts {
+    background-color: rgba(200, 197, 209, 0.2);
+    width: 100%;
+    padding: 25px 30px 17px;
+}
+.form__contacts.no-inputs {
+    padding: 0px 30px;
+}
 
+.form__contacts__input-content {
+    width: 100%;
+    height: 37px;
+    display: flex;
+    margin-bottom: 15px;
+}
+.form__contacts__input-content {
+    width: 100%;
+    height: 37px;
+    display: flex;
+    margin-bottom: 15px;
+}
+.form__contacts__input-content:last-child {
+    margin-bottom: 17px;
+}
+
+.form__contacts__select {
+    height: 100%;
+    width: 123px;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.form__contacts__select__toggle {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--grey);
+    background-color: #E7E5EB;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--black);
+    text-align: left;
+}
+.form__contacts__select__toggle:hover {
+    cursor: pointer;
 }
 
 .form__contacts__select__arrow {
+    pointer-events: none;
     width: 12px;
     height: 12px;
     background-repeat: no-repeat;
     background-position: center;
     position: absolute;
-    top: 13px;
-    left: 8px;
+    top: 12.5px;
+    right: 8px;
 }
 .arrow-icon {
     background-image: url('../icons/select-arrow.svg');
-    transform: rotateX(0deg);
-    transition: transform 0.3s;
 }
 .arrow-icon_up {
     transform: rotateX(180deg);
+}
+
+.form__contacts__select__options {
+    position: absolute;
+    background-color: #F4F3F6;
+    width: 100%;
+    overflow: hidden;
+    border: 1px solid var(--grey);
+    border-top: none;
+    padding: 6px 0px;
+}
+.form__contacts__select__options.closed {
+    padding: 0px;
+    height: 0px;
+    border: none;
+}
+
+.form__contacts__select__option {
+    width: 100%;
+    text-align: left;
+    height: 26px;
+    padding: 5px 12px;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--black);
+}
+.form__contacts__select__option:hover,
+.form__contacts__select__option.active {
+    cursor: pointer;
+    background-color: #E7E5EB;
+}
+
+.form__contacts__input {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    padding-left: 12px;
+    padding-right: 12px;
+    border-top: 1px solid var(--grey);
+    border-bottom: 1px solid var(--grey);
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--black);
+}
+.form__contacts__input::placeholder {
+    font-weight: 400;
+    color: var(--txt-grey);
+}
+
+.form__contacts__delete-button {
+    display: inline-block;
+    width: 26px;
+    flex-shrink: 0;
+    height: 100%;
+    border: 1px solid var(--grey);
+    background-color: #E7E5EB;
+    background-image: url("../icons/delete.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: all 0.3s;
+}
+.form__contacts__delete-button:hover {
+    cursor: pointer;
+    border-color: var(--red);
+    background-image: url("../icons/delete-red.svg");
+}
+
+.form__contacts__add-button {
+    display: block;
+    padding: 8px 0px;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--black);
+    transition: color 0.3s;
+}
+.form__contacts__add-button:hover {
+    cursor: pointer;
+    color: var(--firm);
+}
+
+.form__contacts__add-button > span::before {
+    content: "";
+    display: inline-block;
+    background-image: url("../icons/add.svg");
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background 0.3s;
+    vertical-align: middle;
+    margin-bottom: 2px;
+}
+
+.form__contacts__add-button:hover > span::before {
+    background-image: url("../icons/add-active.svg");
+}
+
+.form__buttons {
+    width: 100%;
+    padding-top: 8px;
+    padding-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form__error-message {
+    min-height: 8px;
+    width: 100%;
+    max-width: 255px;
+    font-size: 10px;
+    color: var(--red);
+    margin-bottom: 9px;
+    text-align: center;
+    padding: 0px 15px;
+}
+
+.form__submit-button {
+    margin-bottom: 5px;
+}
+
+.form__cancel-button {
+    font-weight: 400;
+    font-size: 12px;
+    color: var(--black);
+    text-decoration: underline;
+    text-wrap: nowrap;
+}
+.form__cancel-button:hover {
+    cursor: pointer;
+}
+
+[hidden] {
+    display: none;
+}
+
+@media (max-width: 400px) {
+    .form__contacts__select {
+        width: 110px;
+    }
+    .form__contacts__input {
+        padding-left: 6px;
+        padding-right: 6px;
+    }
+    .form__close-button {
+        top: 3px;
+        right: 3px;
+    }
+    .form__name-inputs,
+    .form__contacts {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
 }
