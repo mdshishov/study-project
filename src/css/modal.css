@@ -17,6 +17,7 @@
     left: 0px;
     width: 100%;
     height: 100%;
+    margin: 0px;
     background-color: rgba(51, 51, 51, 0.6);
     display: flex;
     padding: 20px 10px;
@@ -39,6 +40,7 @@
     position: relative;
     top: 0px;
     transition: top 0.5s;
+    flex-shrink: 0;
 }
 .modal__window.closed {
     top: -50px;
@@ -150,14 +152,8 @@
     display: flex;
     margin-bottom: 15px;
 }
-.form__contacts__input-content {
-    width: 100%;
-    height: 37px;
-    display: flex;
-    margin-bottom: 15px;
-}
-.form__contacts__input-content:last-child {
-    margin-bottom: 17px;
+.form__contacts__input-content:last-of-type {
+    margin-bottom: 8px;
 }
 
 .form__contacts__select {
@@ -190,7 +186,7 @@
     background-repeat: no-repeat;
     background-position: center;
     position: absolute;
-    top: 12.5px;
+    top: 13px;
     right: 8px;
 }
 .arrow-icon {
@@ -214,6 +210,7 @@
     border: 1px solid var(--grey);
     border-top: none;
     padding: 6px 0px;
+    z-index: 110;
 }
 
 .form__contacts__select__option {
@@ -267,6 +264,7 @@
 }
 
 .form__contacts__add-button {
+    margin-top: 17px;
     display: block;
     padding: 8px 0px;
     width: 100%;
@@ -278,6 +276,9 @@
 .form__contacts__add-button:hover {
     cursor: pointer;
     color: var(--firm);
+}
+.form__contacts.no-inputs .form__contacts__add-button {
+    margin-top: 0px;
 }
 
 .form__contacts__add-button > span::before {
