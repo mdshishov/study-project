@@ -1,11 +1,3 @@
-export const contactTypes = {
-  phone: 'Телефон',
-  email: 'Email',
-  facebook: 'Facebook',
-  vk: 'VK',
-  other: 'Другое',
-}
-
 //Отменяет ввод пробелов в текстовом поле
 export function keypressNoSpaces(event) {
   if (event.keyCode === 32) {

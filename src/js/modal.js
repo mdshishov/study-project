@@ -1,4 +1,5 @@
 import * as basic from './basic.js';
+import state from './state.js'
 
 function handleOpenAddClientModal() {
   openModal();
@@ -167,14 +168,14 @@ function createFormWindow(data = null) {
 
   if (data) {
     submitButtonSpan.textContent = 'Сохранить';
-    submitButton.addEventListener('click', handleEditFormSubmit);
+    form.addEventListener('submit', handleEditFormSubmit);
     cancelButton.textContent = 'Удалить клиента';
     cancelButton.addEventListener('click', () => {
       //ФУНКЦИЯ МОДАЛЬНОГО ОКНА УДАЛЕНИЯ
     });
   } else {
     submitButtonSpan.textContent = 'Добавить';
-    submitButton.addEventListener('click', handleAddFormSubmit);
+    form.addEventListener('submit', handleAddFormSubmit);
     cancelButton.textContent = 'Отмена';
     cancelButton.addEventListener('click', handleCloseModalButton);
   }
@@ -209,7 +210,7 @@ function createContactInput(type = 'phone', value = '') {
   selectToggle.classList.add('form__contacts__select__toggle');
   selectToggle.setAttribute('data-element-selectToggle', '');
   selectToggle.setAttribute('data-selectValue', type);
-  selectToggle.textContent = basic.contactTypes[type];
+  selectToggle.textContent = state().contactTypes[type];
   selectToggle.addEventListener('click', toggleContactInputSelectOptions)
   select.append(selectToggle);
 
@@ -223,7 +224,7 @@ function createContactInput(type = 'phone', value = '') {
   options.setAttribute('data-element-selectOptions', '');
   select.append(options);
 
-  Object.entries(basic.contactTypes).forEach(([optionValue, text]) => {
+  Object.entries(state().contactTypes).forEach(([optionValue, text]) => {
     const option = document.createElement('button');
     option.type = 'button';
     option.classList.add('form__contacts__select__option');
@@ -257,10 +258,10 @@ function createContactInput(type = 'phone', value = '') {
 
 function handleDeleteContactButton(event) {
   const contactInput = event.target.closest('[data-element-contactInputContainer]');
+  const container = contactInput.closest('[data-element-contacts]');
+  container.querySelector('[data-element-addContactButton]').hidden = false;
 
   setTimeout(() => {
-    const container = contactInput.closest('[data-element-contacts]');
-
     contactInput.remove();
 
     const contactInputs = container.querySelectorAll('[data-element-contactInputContainer]');
@@ -277,7 +278,7 @@ function selectOption(event) {
   const select = event.target.closest('[data-element-select]');
   const selectToggle = select.querySelector('[data-element-selectToggle]');
   selectToggle.dataset.selectvalue = optionValue;
-  selectToggle.textContent = basic.contactTypes[optionValue];
+  selectToggle.textContent = state().contactTypes[optionValue];
 
   select.querySelector('[data-element-option].active').classList.remove('active');
   option.classList.add('active');
@@ -308,7 +309,30 @@ function hideContactInputSelectOptions(event) {
   }
 }
 
-function handleAddFormSubmit() {
+async function handleAddFormSubmit(event) {
+  event.preventDefault();
+  const form = event.target.closest('[data-element-modalWindow]');
+  hideFormErrorMessage(form);
+
+  const data = getFormData(form);
+  try {
+    const response = await fetch('http://localhost:3000/api/clients', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    if ( response.ok ) {
+      //ПАРСИМ ОТВЕТ ОБНОВЛЯЕМ ТАБЛИЦУ ЗАКРЫВАЕМ МОДАЛКУ И ТД
+    } else {
+      throw new Error(`Ошибка ${response.status}: ${response.statusText}.`);
+    }
+  } catch(error) {
+    const errorText = error.name === 'TypeError' 
+      ? 'Что-то пошло не так...'
+      : error.message;
+    showFormErrorMessage(form, errorText);
+    throw error;
+  }
 
 }
 
@@ -318,7 +342,26 @@ function handleEditFormSubmit() {
 
 //Сбор данных из формы
 function getFormData(form) {
+  const data = {};
 
+  data.name = form.elements.name.value;
+  data.surname = form.elements.surname.value;
+  if (form.elements.lastName.value.length > 0) {
+    data.lastName = form.elements.lastName.value;
+  };
+
+  const contacts = [];
+  form.querySelectorAll('[data-element-contactInputContainer]').forEach((inputContainer) => {
+    const type = inputContainer.querySelector('[data-element-selectToggle]').dataset.selectvalue;
+    const value = inputContainer.querySelector('[data-element-contactInput]').value;
+    contacts.push({ type, value });
+  })
+
+  if (contacts.length > 0) {
+    data.contacts = contacts;
+  }
+
+  return data;
 }
 
 //Обработка события закрытия модального окна
@@ -362,6 +405,14 @@ export function controlInputLableSize(event) {
   } else {
     label.classList.remove('form__name-label_small');
   }
+}
+
+function showFormErrorMessage(form, message = 'Что-то пошло не так...') {
+  const errorMessage = form.querySelector('[data-element-errorMessage]');
+  errorMessage.textContent = message;
+}
+function hideFormErrorMessage(form) {
+  showFormErrorMessage(form, '');
 }
 
 export { handleOpenAddClientModal };

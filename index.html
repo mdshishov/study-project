@@ -15,66 +15,6 @@
 </head>
 
 <body>
-    <div data-element-modal class="modal" hidden>
-        <form data-element-modalWindow class="form modal__window">
-            <button type="button" class="form__close-button"></button>
-            <fieldset name="name-inputs" class="form__name-inputs">
-                <h2 class="form__header">
-                    Изменить данные<span class="header_text-light">ID: 2345678</span>
-                </h2>
-                <div class="form__name-input-content">
-                    <input name="name" class="form__name-input" type="text" required>
-                    <label data-element-nameInputLabel class="form__name-label">Фамилия<span class="text-firm-color">*</span></label>
-                    <span class="form__name-input__underline"></span>
-                </div>
-                <div class="form__name-input-content">
-                    <input data-name-input name="surname" class="form__name-input" type="text" required>
-                    <label class="form__name-label">Имя<span class="text-firm-color">*</span></label>
-                    <span class="form__name-input__underline"></span>
-                </div>
-                <div class="form__name-input-content">
-                    <input data-name-input name="lastName" class="form__name-input" type="text">
-                    <label class="form__name-label">Отчество</label>
-                    <span class="form__name-input__underline"></span>
-                </div>
-            </fieldset>
-            <fieldset data-element-contacts name="contacts" class="form__contacts">
-                <div class="form__contacts__input-content">
-                    <div data-element-select class="form__contacts__select">
-                        <button type="button" data-option="phone" class="form__contacts__select__toggle">
-                            Телeфон
-                        </button>
-                        <div data-arrow-icon class="arrow-icon form__contacts__select__arrow"></div>
-                        <div data-select-options class="form__contacts__select__options closed">
-                            <button data-option="phone" type="button" class="form__contacts__select__option">
-                                Телефон
-                            </button>
-                            <button data-option="phone" type="button" class="form__contacts__select__option">
-                                Телефон
-                            </button>
-                            <button data-option="phone" type="button" class="form__contacts__select__option">
-                                Телефон
-                            </button>
-                        </div>
-                    </div>
-                    <input class="form__contacts__input" type="text" required placeholder="Введите данные">
-                    <button type="button" class="form__contacts__delete-button"></button>
-                </div>
-                <button type="button" class="form__contacts__add-button">
-                    <span>Добавить контакт</span>
-                </button>
-            </fieldset>
-            <fieldset name="buttons" class="form__buttons">
-                <p id="error-message" class="form__error-message">
-                    Текст ошибки
-                </p>
-                <button id="submit-button" class="button button_primary form__submit-button">
-                    <span>Сохранить</span>
-                </button>
-                <button type="button" class="form__cancel-button">Удалить клиента</button>
-            </fieldset>
-        </form>
-    </div>
     <header class="header">
         <div class="header__content">
             <a href="#" class="header__link">
