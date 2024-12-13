@@ -32,31 +32,29 @@
         <h1 class="main__title">Клиенты</h1>
         <div class="main__content">
             <table id="table" class="table main__table">
-                <thead class="table__header">
+                <thead id="table-header" class="table__header">
                     <tr class="table__row table__row_header">
                         <th class="table__cell table__cell_header table__cell_header_id">
-                            <button class="button_sort">
-                                ID<!--
-                                --><img src="./src/icons/arrow-down.svg" alt="Стрелочка" class="icon_sort">
+                            <button class="sort-button active" data-element-sortButton data-sortField="id" data-sortDirection="0">
+                                ID<span class="sort-icon"></span>
                             </button >
                         </th>
-                        <th class="table__cell table__cell_header table__cell_header_full-name">
-                            <button class="button_sort">
-                                Фамилия Имя Отчество<!--
-                                --><img src="./src/icons/arrow-down.svg" alt="Стрелочка" class="icon_sort"><!--
-                                --><span class="text_sort">А-Я</span>
+                        <th class="table__cell table__cell_header table__cell_header_name">
+                            <button class="sort-button" data-element-sortButton data-sortField="name" data-sortDirection="0">
+                                Фамилия Имя <span class="text-nowrap">Отчество<!--
+                                 --><span class="sort-icon"></span><!--
+                                 --><span class="sort-text sort-text_0">А-Я</span><span class="sort-text sort-text_1">Я-А</span>
+                                </span>
                             </button>
                         </th>
-                        <th class="table__cell table__cell_header table__cell_header_creation-time">
-                            <button class="button_sort">
-                                Дата и время создания<!--
-                                --><img src="./src/icons/arrow-down.svg" alt="Стрелочка" class="icon_sort">
+                        <th class="table__cell table__cell_header table__cell_header_created-at">
+                            <button class="sort-button" data-element-sortButton data-sortField="createdAt" data-sortDirection="0">
+                                Дата и время <span class="text-nowrap">создания<span class="sort-icon"></span></span>
                             </button>
                         </th>
-                        <th class="table__cell table__cell_header table__cell_header_last-change-time">
-                            <button class="button_sort">
-                                Последния изменения<!--
-                                --><img src="./src/icons/arrow-down.svg" alt="Стрелочка" class="icon_sort">
+                        <th class="table__cell table__cell_header table__cell_header_updated-at">
+                            <button class="sort-button" data-element-sortButton data-sortField="updatedAt" data-sortDirection="0">
+                                Последние <span class="text-nowrap">изменения<span class="sort-icon"></span></span>
                             </button>
                         </th>
                         <th class="table__cell table__cell_header table__cell_header_contacts">

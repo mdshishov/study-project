@@ -53,3 +53,7 @@
 .text-firm-color {
     color: var(--firm);
 }
+
+.text-nowrap {
+    text-wrap: nowrap;
+}

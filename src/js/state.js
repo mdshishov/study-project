@@ -1,8 +1,13 @@
 let _activeUser = 0;
 
 const _sortState = {
-  field: '',
-  direction: '',
+  active: 'id',
+  directions: {
+    id: '0',
+    name: '0',
+    createdAt: '0',
+    updatedAt:'0',
+  },
 }
 
 const _contactTypes = {
