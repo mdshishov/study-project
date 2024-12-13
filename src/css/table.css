@@ -176,7 +176,7 @@
 }
 .contact-tooltip__text {
     text-wrap: nowrap;
-    padding: 8px 17px 7px;
+    padding: 8px 17px;
     background-color: var(--black);
 }
 .contact-tooltip__triangle {
