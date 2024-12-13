@@ -14,6 +14,10 @@ function openModal(type = 'form', data = null) {
   modal.classList.add('modal');
   modal.addEventListener('click', handleCloseModal);
 
+  const modalContent = document.createElement('div');
+  modalContent.classList.add('modal__content');
+  modal.append(modalContent);
+
   let modalWindow
   switch (type) {
     case 'form':
@@ -29,7 +33,7 @@ function openModal(type = 'form', data = null) {
       break;
   }
 
-  modal.append(modalWindow);
+  modalContent.append(modalWindow);
 
   modal.classList.add('closed');
   modalWindow.classList.add('closed');
@@ -59,7 +63,10 @@ function createFormWindow(data = null) {
   closeButton.addEventListener('click', handleCloseModalButton);
   form.append(closeButton);
 
-  
+  const nameInputsField = document.createElement('fieldset');
+  nameInputsField.name = 'name-inputs';
+  nameInputsField.classList.add('form__name-inputs');
+  form.append(nameInputsField);  
 
   const formHeader = document.createElement('h2');
   formHeader.classList.add('form__header');
@@ -72,18 +79,9 @@ function createFormWindow(data = null) {
   } else {
     formHeader.textContent = 'Новый клиент';
   }
-  form.append(formHeader);
-
-  const content = document.createElement('div');
-  content.classList.add('modal__window__content');
-  form.append(content);
-
-  const nameInputsField = document.createElement('fieldset');
-  nameInputsField.name = 'name-inputs';
-  nameInputsField.classList.add('form__name-inputs');
-  content.append(nameInputsField);
+  nameInputsField.append(formHeader);
   
-  [['surname', 'Фамилия'], ['name', 'Имя'], ['lastName', 'Отчество']].forEach(([inputName, labelText]) => {
+  Object.entries({ surname: 'Фамилия', name: 'Имя', lastName: 'Отчество' }).forEach(([inputName, labelText]) => {
     const container = document.createElement('div');
     container.classList.add('form__name-input-content');
 
@@ -118,7 +116,7 @@ function createFormWindow(data = null) {
   contactsField.name = 'contacts';
   contactsField.classList.add('form__contacts', 'no-inputs');
   contactsField.setAttribute('data-element-contacts', '');
-  content.append(contactsField);
+  form.append(contactsField);
 
   const addContactButton = document.createElement('button');
   addContactButton.type = 'button';
@@ -148,7 +146,7 @@ function createFormWindow(data = null) {
   const buttonsField = document.createElement('fieldset');
   buttonsField.name = 'buttons';
   buttonsField.classList.add('form__buttons');
-  content.append(buttonsField);
+  form.append(buttonsField);
 
   const errorMessage = document.createElement('p');
   errorMessage.classList.add('form__error-message');
