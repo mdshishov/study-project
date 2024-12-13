@@ -59,10 +59,7 @@ function createFormWindow(data = null) {
   closeButton.addEventListener('click', handleCloseModalButton);
   form.append(closeButton);
 
-  const nameInputsField = document.createElement('fieldset');
-  nameInputsField.name = 'name-inputs';
-  nameInputsField.classList.add('form__name-inputs');
-  form.append(nameInputsField);
+  
 
   const formHeader = document.createElement('h2');
   formHeader.classList.add('form__header');
@@ -75,9 +72,18 @@ function createFormWindow(data = null) {
   } else {
     formHeader.textContent = 'Новый клиент';
   }
-  nameInputsField.append(formHeader);
+  form.append(formHeader);
 
-  Object.entries({ name: 'Имя', surname: 'Фамилия', lastName: 'Отчество' }).forEach(([inputName, labelText]) => {
+  const content = document.createElement('div');
+  content.classList.add('modal__window__content');
+  form.append(content);
+
+  const nameInputsField = document.createElement('fieldset');
+  nameInputsField.name = 'name-inputs';
+  nameInputsField.classList.add('form__name-inputs');
+  content.append(nameInputsField);
+  
+  [['surname', 'Фамилия'], ['name', 'Имя'], ['lastName', 'Отчество']].forEach(([inputName, labelText]) => {
     const container = document.createElement('div');
     container.classList.add('form__name-input-content');
 
@@ -112,7 +118,7 @@ function createFormWindow(data = null) {
   contactsField.name = 'contacts';
   contactsField.classList.add('form__contacts', 'no-inputs');
   contactsField.setAttribute('data-element-contacts', '');
-  form.append(contactsField);
+  content.append(contactsField);
 
   const addContactButton = document.createElement('button');
   addContactButton.type = 'button';
@@ -142,7 +148,7 @@ function createFormWindow(data = null) {
   const buttonsField = document.createElement('fieldset');
   buttonsField.name = 'buttons';
   buttonsField.classList.add('form__buttons');
-  form.append(buttonsField);
+  content.append(buttonsField);
 
   const errorMessage = document.createElement('p');
   errorMessage.classList.add('form__error-message');
