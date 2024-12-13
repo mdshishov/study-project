@@ -1,4 +1,4 @@
-let _activeUser = 0;
+let _activeClient = 0;
 
 const _sortState = {
   active: 'id',
@@ -25,11 +25,11 @@ function state() {
     },
     set contactTypes(value) {},
 
-    get activeUser() {
-      return _activeUser;
+    get activeClient() {
+      return _activeClient;
     },
-    set activeUser(value) {
-      _activeUser = value;
+    set activeClient(value) {
+      _activeClient = value;
     },
 
     get sortState() {

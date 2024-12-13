@@ -20,11 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 });
 
-// кликае на кнопку соритировки
-// изменяем объект
-// обновляем ативность в соостествии с объектом
-// ерерисовываем таблицу
-
+//Обновляет визуал кнопок в зависимости от объекта сортировки
 function updateSortButtons(sortState) {
   const { active, directions } = sortState;
   const header = document.getElementById('table-header');
@@ -40,6 +36,7 @@ function updateSortButtons(sortState) {
   });
 }
 
+//Обрабатыает нажатие на кнопку сортировки
 function handleSortButton(event) {
   const button = event.target.closest('[data-element-sortButton]');
   const sortField = button.dataset.sortfield;
@@ -50,6 +47,13 @@ function handleSortButton(event) {
     state().sortState.active = sortField;
   }
   updateSortButtons(state().sortState);
+  //сортируем клиетов
+  //перерисовываем таблицу
+}
+
+//Создаёт тело таблицы
+function createTableBody(data) {
+  return tbody;
 }
 
 

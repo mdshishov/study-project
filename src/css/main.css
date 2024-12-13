@@ -113,13 +113,12 @@ body {
     font-weight: 700;
     font-size: 24px;
     color: var(--black);
-    margin-bottom: 26px;
     width: 100%;
     padding: 0px 20px;
 }
 
 .main__content {
-    padding: 0px 20px;
+    padding: 26px 20px 0px;
     width: 100%;
     margin-bottom: 40px;
     overflow-x: auto;
@@ -129,8 +128,6 @@ body {
 .main__content::-webkit-scrollbar {
     display: none;
 }
-
-
 
 .main__table {
     min-width: 728px;

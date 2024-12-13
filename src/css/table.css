@@ -113,7 +113,80 @@
     color: var(--txt-grey);
 }
 
-.table__cell_body_full-name {}
+.table__contacts {
+    max-width: 108px;
+    width: 108px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 7px;
+}
+
+.table__contact {
+    width: 16px;
+    height: 16px;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+    position: relative;
+}
+.table__contact:hover {
+    opacity: 1;
+}
+
+.table__contact_phone {
+    background-image: url("../icons/phone.svg");
+}
+.table__contact_email {
+    background-image: url("../icons/mail.svg");
+}
+.table__contact_facebook {
+    background-image: url("../icons/fb.svg");
+}
+.table__contact_vk {
+    background-image: url("../icons/vk.svg");
+}
+.table__contact_other {
+    background-image: url("../icons/user.svg");
+}
+
+.table__contacts__button {
+    display: block;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    border: 1px solid var(--firm);
+    color: var(--black);
+    font-weight: 600;
+    font-size: 8px;
+    line-height: 8px;
+}
+.table__contacts__button:hover {
+    cursor: pointer;
+}
+
+.contact-tooltip {
+    position: absolute;
+    bottom: 13px;
+    transform: translateX(calc(-50% + 8px));
+    font-weight: 400;
+    font-size: 12px;
+    color: #ffffff;
+}
+.contact-tooltip__text {
+    text-wrap: nowrap;
+    padding: 8px 17px 7px;
+    background-color: var(--black);
+}
+.contact-tooltip__triangle {
+    width: 12px;
+    height: 12px;
+    border: 6px solid transparent;
+    border-top: 6px solid var(--black);
+    position: relative;
+    left: calc(50% - 6px);
+}
 
 .actions__button {
     display: block;

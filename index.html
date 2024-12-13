@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>skb</title>
-    <script type="module" src="./src/js/script.js"></script>
+    <script type="module" src="./src/js/main.js"></script>
     <link rel="stylesheet" href="./src/css/fonts.css">
     <link rel="stylesheet" href="./src/css/normolize.css">
     <link rel="stylesheet" href="./src/css/basic.css">
@@ -22,9 +22,9 @@
             </a>
             <div class="header__search">
                 <input type="text" class="header__search__input" placeholder="Введите запрос">
-                <button class="header__search__button">
+                <!-- <button class="header__search__button">
                     <img src="./src/icons/search.svg" alt="Поиск" class="header__search__icon">
-                </button>
+                </button> -->
             </div>
         </div>
     </header>
@@ -79,7 +79,22 @@
                             21.02.2021 <span class="text-light">12:41</span>
                         </td>
                         <td class="table__cell table__cell_body table__cell_body_contacts">
-                            Контакты
+                            <div data-element-tableContacts data-clientId="" class="table__contacts">
+                                <div data-contactType="Телефон" data-contactValue="+777777777" class="table__contact table__contact_phone">
+                                    <div class="contact-tooltip">
+                                        <div class="contact-tooltip__text">
+                                            Телефон: <span class="text-bold">+77777777</span>
+                                        </div>
+                                        <div class="contact-tooltip__triangle"></div>
+                                    </div>
+                                </div>
+                                <div data-contactType="Телефон" data-contactValue="+777777777" class="table__contact table__contact_phone"></div>
+                                <div data-contactType="Телефон" data-contactValue="+777777777" class="table__contact table__contact_phone"></div>
+                                <div data-contactType="Телефон" data-contactValue="+777777777" class="table__contact table__contact_phone"></div>
+                                <div data-contactType="Телефон" data-contactValue="+777777777" class="table__contact table__contact_phone"></div>
+                                <div data-contactType="Телефон" data-contactValue="+777777777" class="table__contact table__contact_phone"></div>
+                                <button class="table__contacts__button">+6</button>
+                            </div>
                         </td>
                         <td class="table__cell table__cell_body table__cell_body_actions">
                             <div>
