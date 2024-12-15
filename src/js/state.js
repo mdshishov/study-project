@@ -1,4 +1,4 @@
-let _activeClient = 0;
+let _activeClient = null;
 
 let _clients = [];
 

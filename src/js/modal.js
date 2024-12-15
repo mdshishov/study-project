@@ -2,14 +2,44 @@ import * as basic from './basic.js';
 import * as table from './table.js';
 import state from './state.js'
 
-function handleOpenAddClientModal() {
+// --- Добавление, редактирование и удаление клиентов ---
+// Открывает форму добавления клиента
+export function handleOpenAddClientModal() {
   openModal();
 }
 
-function handleOpenEditClientModal() {
-
+// Открывает форму редактирования клиента
+export async function handleOpenEditClientModal(event) {
+  basic.disableClicks();
+  const button = event.target.closest('[data-element-contactAction]');
+  button.classList.add('loading');
+  const clientId = button.dataset.clientid;
+  
+  try {
+    const response = await fetch(`http://localhost:3000/api/clients/${clientId}`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    if ( !response.ok ) {
+      basic.showError();
+      basic.enableClicks();
+      throw new Error(`Ошибка ${response.status}: ${response.statusText}.`);
+      return;
+    }
+    state().activeClient = await response.json();
+  } catch(error) {
+    basic.showError();
+    basic.enableClicks();
+    throw error;
+    return;
+  }
+  
+  openModal('form', state().activeClient);
+  button.classList.remove('loading');
+  basic.enableClicks();
 }
 
+// Открывает модальное окно в зависимости от переданного типа
 function openModal(type = 'form', data = null) {
   const modal = document.createElement('div');
   modal.setAttribute('data-element-modal', '');
@@ -30,7 +60,7 @@ function openModal(type = 'form', data = null) {
       modalWindow = createDeleteWindow();
       break;
     default:
-      showError();
+      basic.showError();
       return;
       break;
   }
@@ -88,7 +118,6 @@ function createFormWindow(data = null) {
     container.classList.add('form__name-input-content');
 
     const input = document.createElement('input');
-    input.value = data ? data[inputName] : '';
     input.name = inputName;
     input.type = 'text';
     input.required = inputName !== 'lastName';
@@ -105,6 +134,11 @@ function createFormWindow(data = null) {
       span.classList.add('text-firm-color');
       span.textContent = '*';
       label.append(span);
+    }
+
+    if (data && data[inputName]) {
+      input.value = data[inputName];
+      label.classList.add('form__name-label_small');
     }
 
     const underline = document.createElement('span');
@@ -184,6 +218,21 @@ function createFormWindow(data = null) {
   return form;
 }
 
+// --- Поля ввода имени ---
+// Изменяет стиль lable в зависимости от наполнения input
+export function controlInputLableSize(event) {
+  const input = event.target;
+  input.value = input.value.trim();
+  const label = input.parentNode.querySelector('[data-element-nameInputLabel]');
+  if (input.value !== '') {
+    label.classList.add('form__name-label_small');
+  } else {
+    label.classList.remove('form__name-label_small');
+  }
+}
+
+// --- Поля ввода контактов ---
+// Добавляет поле для нового контакта
 function handleAddContactButton(event) {
   const target = event.target.closest('[data-element-addContactButton]');
   const contactInput = createContactInput('phone');
@@ -197,6 +246,7 @@ function handleAddContactButton(event) {
   }
 }
 
+// Создаёт поле ввода контакта 
 function createContactInput(type = 'phone', value = '') {
   const container = document.createElement('div');
   container.classList.add('form__contacts__input-content');
@@ -245,6 +295,7 @@ function createContactInput(type = 'phone', value = '') {
   input.required = true;
   input.placeholder = 'Введите данные';
   input.setAttribute('data-element-contactInput', '');
+  input.value = value;
   input.addEventListener('keypress', basic.keypressNoDubbleSpaces);
 
   const deleteButton = document.createElement('button');
@@ -259,6 +310,7 @@ function createContactInput(type = 'phone', value = '') {
   return container;
 }
 
+// Удаляет поле ввода контактов
 function handleDeleteContactButton(event) {
   const contactInput = event.target.closest('[data-element-contactInputContainer]');
   const container = contactInput.closest('[data-element-contacts]');
@@ -274,6 +326,8 @@ function handleDeleteContactButton(event) {
   }, 0);
 }
 
+// --- Выпадающий список ---
+// Переназначает выбранное значение
 function selectOption(event) {
   const option = event.target.closest('[data-element-option]');
   const optionValue = option.dataset.optionvalue;
@@ -289,12 +343,14 @@ function selectOption(event) {
   toggleContactInputSelectOptions(event);
 }
 
+// Открывает/закрывает выпадающий список
 function toggleContactInputSelectOptions(event) {
   const select = event.target.closest('[data-element-select]');
   select.querySelector('[data-element-selectArrow]').classList.toggle('arrow-icon_up');
   select.querySelector('[data-element-selectOptions]').classList.toggle('opened');
 }
 
+// Закрывает выпадающий список при клике в любом месте формы вне его
 function hideContactInputSelectOptions(event) {
   const target = event.target;
   if (target.closest('[data-element-select]') === null) {
@@ -312,7 +368,9 @@ function hideContactInputSelectOptions(event) {
   }
 }
 
-async function handleAddFormSubmit(event) {
+// --- Отправка формы ---
+// Отправляет форму, создавая запрос в зависимости от типа
+async function submitForm(event, type = 'add') {
   event.preventDefault();
   basic.disableClicks();
   const form = event.target.closest('[data-element-modalWindow]');
@@ -321,15 +379,17 @@ async function handleAddFormSubmit(event) {
   hideFormErrorMessage(form);
 
   const data = getFormData(form);
+  const clientId = type === 'edit' ? state().activeClient.id : null;
   try {
-    const response = await fetch('http://localhost:3000/api/clients', {
-      method: 'POST',
+    const response = await fetch(`http://localhost:3000/api/clients${type === 'edit' ? `/${clientId}` : ''}`, {
+      method: type === 'edit' ? 'PATCH': 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     });
     if ( response.ok ) {
       handleCloseModalButton(event);
       table.updateTable();
+      basic.enableClicks();
     } else {
       throw new Error(`Ошибка ${response.status}: ${response.statusText}.`);
     }
@@ -339,24 +399,27 @@ async function handleAddFormSubmit(event) {
       : error.message;
     button.classList.remove('loading');
     showFormErrorMessage(form, errorText);
+    basic.enableClicks();
     throw error;
+    return;
   }
-
+}
+// Отправляет данные из формы создания клиента
+async function handleAddFormSubmit(event) {
+  submitForm(event);
+}
+// Отправляет данные из формы редактирования клиента
+async function handleEditFormSubmit(event) {
+  submitForm(event, 'edit');
 }
 
-function handleEditFormSubmit() {
-
-}
-
-//Сбор данных из формы
+// Собирает данные из формы
 function getFormData(form) {
   const data = {};
 
   data.name = form.elements.name.value;
   data.surname = form.elements.surname.value;
-  if (form.elements.lastName.value.length > 0) {
-    data.lastName = form.elements.lastName.value;
-  };
+  data.lastName = form.elements.lastName.value;
 
   const contacts = [];
   form.querySelectorAll('[data-element-contactInputContainer]').forEach((inputContainer) => {
@@ -364,15 +427,13 @@ function getFormData(form) {
     const value = inputContainer.querySelector('[data-element-contactInput]').value;
     contacts.push({ type, value });
   })
-
-  if (contacts.length > 0) {
-    data.contacts = contacts;
-  }
+  data.contacts = contacts;
 
   return data;
 }
 
-//Обработка события закрытия модального окна
+// --- Закрытие модального окна ---
+// При клике на фон
 function handleCloseModal(event) {
   const target = event.target;
 
@@ -381,13 +442,14 @@ function handleCloseModal(event) {
     closeModal(modal);
   }
 }
+// При клике на кнопку
 function handleCloseModalButton(event) {
   const target = event.target;
   const modal = target.closest('[data-element-modal]');
   closeModal(modal);
 }
 
-//Закрытие модального окна
+// Закрывает модальное окно
 function closeModal(modal) {
   document.removeEventListener('click', hideContactInputSelectOptions);
   modal.style.pointerEvents = 'none';
@@ -403,18 +465,8 @@ function closeModal(modal) {
   }, 0)
 }
 
-//Изменяет стиль lable в зависимости от наполнения input
-export function controlInputLableSize(event) {
-  const input = event.target;
-  input.value = input.value.trim();
-  const label = input.parentNode.querySelector('[data-element-nameInputLabel]');
-  if (input.value !== '') {
-    label.classList.add('form__name-label_small');
-  } else {
-    label.classList.remove('form__name-label_small');
-  }
-}
 
+// Показывает сообщение об ошибке при отправке формы
 function showFormErrorMessage(form, message = 'Что-то пошло не так...') {
   const errorMessage = form.querySelector('[data-element-errorMessage]');
   errorMessage.textContent = message;
@@ -422,5 +474,3 @@ function showFormErrorMessage(form, message = 'Что-то пошло не та�
 function hideFormErrorMessage(form) {
   showFormErrorMessage(form, '');
 }
-
-export { handleOpenAddClientModal };

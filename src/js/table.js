@@ -1,6 +1,9 @@
 import * as basic from './basic.js';
+import * as modal from './modal.js';
 import state from './state.js'
 
+// --- Таблица ---
+// Обновляет таблицу на странице
 export async function updateTable() {
   const table = document.getElementById('table');
   const tbody = document.getElementById('table-body');
@@ -32,6 +35,7 @@ export async function updateTable() {
   } catch(error) {
     basic.showError();
     throw error;
+    return;
   }
 
   state().sortClients();
@@ -43,6 +47,7 @@ export async function updateTable() {
   thead.classList.remove('loading');
 }
 
+// Создаёт тело таблицы
 function createTableBody(data = []) {
   const tbody = document.createElement('tbody');
   tbody.id = 'table-body';
@@ -56,6 +61,7 @@ function createTableBody(data = []) {
   return tbody;
 }
 
+// Создаёт строку таблицы
 function createTableRow(clientData) {
   const tr = document.createElement('tr');
   tr.classList.add('table__row', 'table__row_body');
@@ -128,17 +134,17 @@ function createTableRow(clientData) {
 
   const actionEdit = document.createElement('button');
   actionEdit.classList.add('table__action-button', 'table__action-button_edit', 'button_with-icon');
+  actionEdit.setAttribute('data-element-contactAction', '');
   actionEdit.setAttribute('data-clientId', clientData.id);
   const actionEditSpan = document.createElement('span');
   actionEditSpan.textContent = 'Изменить';
   actionEdit.append(actionEditSpan);
-  actionEdit.addEventListener('click', () => {
-    //ФУНКЦИЯ ИЗМЕНЕНИЯ КЛИЕНТА
-  });
+  actionEdit.addEventListener('click', modal.handleOpenEditClientModal);
   actions.append(actionEdit);
 
   const actionDelete = document.createElement('button');
   actionDelete.classList.add('table__action-button', 'table__action-button_delete', 'button_with-icon');
+  actionDelete.setAttribute('data-element-contactAction', '');
   actionDelete.setAttribute('data-clientId', clientData.id);
   const actionDeleteSpan = document.createElement('span');
   actionDeleteSpan.textContent = 'Удалить';
@@ -152,12 +158,13 @@ function createTableRow(clientData) {
   return tr;
 }
 
+// --- Контакты пользователя ---
 //Показывает все контакты пользователя
 function showAllContacts(event) {
   const button = event.target.closest('[data-element-contactsButton]');
   button.hidden = true;
   const contactsContainer = button.closest('[data-element-tableContacts]');
-  const contacts = state().clients.filter(({ id }) => id === contactsContainer.dataset.clientid)[0].contacts;
+  const contacts = state().clients.find(({ id }) => id === contactsContainer.dataset.clientid).contacts;
   contacts.slice(4).forEach(({ type, value }) => {
     const contact = document.createElement('div');
     contact.classList.add('table__contact');
@@ -173,7 +180,7 @@ function showAllContacts(event) {
   }, 0);
 }
 
-//Показ подсказки при наведении на контакт
+// Показывает подсказку при наведении на контакт
 function showContactTooltip(event) {
   const contact = event.target.closest('[data-element-contact]');
   const contactType = state().contactTypes[contact.dataset.contacttype];
@@ -203,23 +210,8 @@ function hideContactTooltip(event) {
   tooltip.remove();
 }
 
-//Обновляет визуал кнопок сортировки в зависимости от объекта сортировки
-function updateSortButtons(sortState) {
-  const { active, directions } = sortState;
-  const header = document.getElementById('table-header');
-
-  const buttons = header.querySelectorAll('[data-element-sortButton]');
-  buttons.forEach((button) => {
-    if (button.dataset.sortfield === active) {
-      button.classList.add('active');
-    } else {
-      button.classList.remove('active');
-    }
-    button.dataset.sortdirection = directions[button.dataset.sortfield];
-  });
-}
-
-//Обрабатывает нажатие на кнопку сортировки
+// --- Кнопки сортировки ---
+// Обрабатывает нажатие на кнопку сортировки
 export function handleSortButton(event) {
   const button = event.target.closest('[data-element-sortButton]');
   const sortField = button.dataset.sortfield;
@@ -238,4 +230,20 @@ export function handleSortButton(event) {
     const newTbody = createTableBody(state().clients);
     tbody.parentNode.replaceChild(newTbody, tbody);
   }
+}
+
+// Обновляет визуал кнопок сортировки в зависимости от объекта сортировки
+function updateSortButtons(sortState) {
+  const { active, directions } = sortState;
+  const header = document.getElementById('table-header');
+
+  const buttons = header.querySelectorAll('[data-element-sortButton]');
+  buttons.forEach((button) => {
+    if (button.dataset.sortfield === active) {
+      button.classList.add('active');
+    } else {
+      button.classList.remove('active');
+    }
+    button.dataset.sortdirection = directions[button.dataset.sortfield];
+  });
 }
