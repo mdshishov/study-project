@@ -1,4 +1,5 @@
 import * as basic from './basic.js';
+import * as table from './table.js';
 import state from './state.js'
 
 function handleOpenAddClientModal() {
@@ -313,6 +314,7 @@ function hideContactInputSelectOptions(event) {
 
 async function handleAddFormSubmit(event) {
   event.preventDefault();
+  basic.disableClicks();
   const form = event.target.closest('[data-element-modalWindow]');
   const button = form.querySelector('[data-element-submit]');
   button.classList.add('loading');
@@ -326,7 +328,8 @@ async function handleAddFormSubmit(event) {
       body: JSON.stringify(data),
     });
     if ( response.ok ) {
-      //ПАРСИМ ОТВЕТ ОБНОВЛЯЕМ ТАБЛИЦУ ЗАКРЫВАЕМ МОДАЛКУ И ТД
+      handleCloseModalButton(event);
+      table.updateTable();
     } else {
       throw new Error(`Ошибка ${response.status}: ${response.statusText}.`);
     }
