@@ -161,7 +161,7 @@ body {
     display: none;
 }
 
-@media (max-width: 1226px) {
+@media (max-width: 1200px) {
     .main__content {
         /* background-color: purple; */
     }

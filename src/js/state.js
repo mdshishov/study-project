@@ -2,6 +2,8 @@ let _activeClient = null;
 
 let _clients = [];
 
+let _lastInput = null;
+
 const _sortState = {
   active: 'id',
   directions: {
@@ -78,6 +80,13 @@ function state() {
     },
     set clients(value) {
       _clients = value;
+    },
+
+    get lastInput() {
+      return _lastInput;
+    },
+    set lastInput(value) {
+      _lastInput = value;
     },
 
     sortClients,

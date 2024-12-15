@@ -16,7 +16,22 @@ document.addEventListener('DOMContentLoaded', () => {
   // Добавляем функционал кнопки добавления клиента
   const addClientButton = document.getElementById('add-client-button');
   addClientButton.addEventListener('click', modal.handleOpenAddClientModal);
+
+  // Настраиваем поле поиска
+  const searchInput = document.getElementById('search-input');
+  searchInput.addEventListener('keypress', basic.keypressNoDubbleSpaces);
+  searchInput.addEventListener('input', handleSearchUser);
 });
+
+// Обновляет таблицу при вводепоискового запроса
+function handleSearchUser() {
+  state().lastInput = Date.now();
+  setTimeout(() => {
+    if (Date.now() - state().lastInput >= 300) {
+      table.updateTable();
+    }
+  }, 300);
+}
 
 
 
