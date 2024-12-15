@@ -135,19 +135,19 @@
     opacity: 1;
 }
 
-.table__contact_phone {
+.table__contact[data-contactType="phone"] {
     background-image: url("../icons/phone.svg");
 }
-.table__contact_email {
+.table__contact[data-contactType="email"] {
     background-image: url("../icons/mail.svg");
 }
-.table__contact_facebook {
+.table__contact[data-contactType="facebook"] {
     background-image: url("../icons/fb.svg");
 }
-.table__contact_vk {
+.table__contact[data-contactType="vk"] {
     background-image: url("../icons/vk.svg");
 }
-.table__contact_other {
+.table__contact[data-contactType="other"] {
     background-image: url("../icons/user.svg");
 }
 
@@ -188,21 +188,45 @@
     left: calc(50% - 6px);
 }
 
-.actions__button {
+
+
+.table__action-button {
     display: block;
+    text-wrap: nowrap;
     font-size: 14px;
     font-weight: 400;
     color: var(--black);
     transition: color 0.3s;
-    width: max-content;
 }
-.actions__button:hover {
+.table__action-button:hover {
     cursor: pointer;
 }
-
-.actions__button--edit:hover {
+.table__action-button_edit:hover {
     color: var(--firm);
 }
-.actions__button--delete:hover {
+.table__action-button_delete:hover {
     color: var(--red);
+}
+
+.table__action-button_edit > span::before {
+    background-image: url("../icons/edit_firm.svg");
+    margin-right: 0px;
+    opacity: 0.7;
+}
+.table__action-button_edit.loading > span::before {
+    background-image: url("../icons/loading_firm.svg");
+    opacity: 1;
+}
+.table__action-button_delete > span::before {
+    background-image: url("../icons/delete_red.svg");
+    margin-right: 1px;
+    opacity: 0.7;
+}
+.table__action-button_delete.loading > span::before {
+    background-image: url("../icons/loading_red.svg");
+    opacity: 1;
+}
+
+[hidden] {
+    display: none;
 }

@@ -46,7 +46,20 @@
     border-color: var(--grey);
 }
 
-.text-light {
+.button_with-icon > span::before {
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    margin-right: 4px;
+    margin-bottom: 2px;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background 0.3s;
+}
+
+.text-grey-color {
     color: var(--txt-grey);
 }
 
@@ -60,4 +73,8 @@
 
 .text-bold {
     font-weight: 700;
+}
+
+.loading {
+    pointer-events: none;
 }

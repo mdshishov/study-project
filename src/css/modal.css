@@ -263,23 +263,27 @@
     flex-shrink: 0;
     height: 100%;
     border: 1px solid var(--grey);
-    background-color: #E7E5EB;
-    background-image: url("../icons/delete.svg");
-    background-position: center;
-    background-repeat: no-repeat;
-    transition: all 0.3s;
+    transition: border 0.3s;
 }
 .form__contacts__delete-button:hover {
     cursor: pointer;
     border-color: var(--red);
-    background-image: url("../icons/delete-red.svg");
+}
+.form__contacts__delete-button > span::before {
+    margin-right: 0px;
+    background-image: url("../icons/delete_grey.svg");
+}
+.form__contacts__delete-button:hover > span::before {
+    background-image: url("../icons/delete_red.svg");
 }
 
 .form__contacts__add-button {
     margin-top: 17px;
     display: block;
     padding: 8px 0px;
-    width: 100%;
+    width: 180px;
+    margin-right: auto;
+    margin-left: auto;
     font-size: 14px;
     font-weight: 600;
     color: var(--black);
@@ -294,21 +298,10 @@
 }
 
 .form__contacts__add-button > span::before {
-    content: "";
-    display: inline-block;
-    background-image: url("../icons/add.svg");
-    width: 16px;
-    height: 16px;
-    margin-right: 4px;
-    background-position: center;
-    background-repeat: no-repeat;
-    transition: background 0.3s;
-    vertical-align: middle;
-    margin-bottom: 2px;
+    background-image: url("../icons/add_firm.svg");
 }
-
 .form__contacts__add-button:hover > span::before {
-    background-image: url("../icons/add-active.svg");
+    background-image: url("../icons/add_firm_active.svg");
 }
 
 .form__buttons {
@@ -333,6 +326,16 @@
 
 .form__submit-button {
     margin-bottom: 5px;
+}
+.form__submit-button.loading {
+    background-color: var(--firm-dark);
+}
+.form__submit-button > span::before {
+    display: none;
+}
+.form__submit-button.loading > span::before {
+    display: inline-block;
+    background-image: url("../icons/loading_firm-light.svg");
 }
 
 .form__cancel-button {

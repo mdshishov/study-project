@@ -27,3 +27,36 @@ export function showError(message = null) {
 
   document.body.append(aside);
 }
+
+//Форматрует фаду в формат 'dd.mm.yy hh:mm'
+export function formatDate(str) {
+  const date = new Date(str);
+  const dayStr = date.getDate().toString().padStart(2, '0');
+  const monthStr = (date.getMonth() + 1).toString().padStart(2, '0');
+  const yearStr = date.getFullYear().toString();
+  const hoursStr = date.getHours().toString().padStart(2, '0');
+  const minutesStr = date.getMinutes().toString().padStart(2, '0');
+
+  return `${dayStr}.${monthStr}.${yearStr} ${hoursStr}:${minutesStr}`;
+}
+
+//Блокирует экран для кликов
+export function disableClicks() {
+  if(!document.getElementById('disable-clicks')) {
+    const div = document.createElement('div');
+    div.id = 'disable-clicks';
+    div.style.zIndex = '2000';
+    div.style.position = 'fixed';
+    div.style.top = '0px';
+    div.style.left = '0px';
+    div.style.width = '100%';
+    div.style.height = '100%';
+    document.body.append(div);
+  }
+}
+export function enableClicks() {
+  const div = document.getElementById('disable-clicks')
+  if(div) {
+    div.remove();
+  }
+}

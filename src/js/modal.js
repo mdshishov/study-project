@@ -121,7 +121,7 @@ function createFormWindow(data = null) {
 
   const addContactButton = document.createElement('button');
   addContactButton.type = 'button';
-  addContactButton.classList.add('form__contacts__add-button');
+  addContactButton.classList.add('form__contacts__add-button', 'button_with-icon');
   addContactButton.setAttribute('data-element-addContactButton', '');
   addContactButton.addEventListener('click', handleAddContactButton);
   const addContactButtonSpan = document.createElement('span');
@@ -155,7 +155,7 @@ function createFormWindow(data = null) {
   buttonsField.append(errorMessage);
 
   const submitButton = document.createElement('button');
-  submitButton.classList.add('button', 'button_primary', 'form__submit-button');
+  submitButton.classList.add('button', 'button_primary', 'button_with-icon', 'form__submit-button');
   submitButton.setAttribute('data-element-submit', '');
   const submitButtonSpan = document.createElement('span');
   submitButton.append(submitButtonSpan);
@@ -248,8 +248,10 @@ function createContactInput(type = 'phone', value = '') {
 
   const deleteButton = document.createElement('button');
   deleteButton.type = 'button';
-  deleteButton.classList.add('form__contacts__delete-button');
+  deleteButton.classList.add('form__contacts__delete-button', 'button_with-icon');
   deleteButton.addEventListener('click', handleDeleteContactButton);
+  const deleteButtonSpan =  document.createElement('span');
+  deleteButton.append(deleteButtonSpan);
 
   container.append(select, input, deleteButton);
 
@@ -312,6 +314,8 @@ function hideContactInputSelectOptions(event) {
 async function handleAddFormSubmit(event) {
   event.preventDefault();
   const form = event.target.closest('[data-element-modalWindow]');
+  const button = form.querySelector('[data-element-submit]');
+  button.classList.add('loading');
   hideFormErrorMessage(form);
 
   const data = getFormData(form);
@@ -330,6 +334,7 @@ async function handleAddFormSubmit(event) {
     const errorText = error.name === 'TypeError' 
       ? 'Что-то пошло не так...'
       : error.message;
+    button.classList.remove('loading');
     showFormErrorMessage(form, errorText);
     throw error;
   }

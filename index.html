@@ -21,7 +21,7 @@
                 <img src="./src/img/skb-logo.svg" alt="Логотип skb." class="header__logo">
             </a>
             <div class="header__search">
-                <input type="text" class="header__search__input" placeholder="Введите запрос">
+                <input id="search-input" type="text" class="header__search__input" placeholder="Введите запрос">
                 <!-- <button class="header__search__button">
                     <img src="./src/icons/search.svg" alt="Поиск" class="header__search__icon">
                 </button> -->
@@ -65,18 +65,18 @@
                         </th>
                     </tr>
                 </thead>
-                <tbody class="table__body">
+                <tbody id="table-body" class="table__body">
                     <tr class="table__row table__row_body">
                         <td class="table__cell table__cell_body table__cell_body_id">
                             12345678
                         </td>
-                        <td class="table__cell table__cell_body table__cell_body_full-name">
+                        <td class="table__cell table__cell_body table__cell_body_name">
                             Иванов Иван Иванович
                         </td>
-                        <td class="table__cell table__cell_body table__cell_body_creation-time">
-                            21.02.2021 <span class="text-light">12:41</span>
-                        <td class="table__cell table__cell_body table__cell_body_last-change-time">
-                            21.02.2021 <span class="text-light">12:41</span>
+                        <td class="table__cell table__cell_body table__cell_body_created-at">
+                            21.02.2021 <span class="text-grey-color">12:41</span>
+                        <td class="table__cell table__cell_body table__cell_body_updated-at">
+                            21.02.2021 <span class="text-grey-color">12:41</span>
                         </td>
                         <td class="table__cell table__cell_body table__cell_body_contacts">
                             <div data-element-tableContacts data-clientId="" class="table__contacts">
@@ -90,14 +90,12 @@
                             </div>
                         </td>
                         <td class="table__cell table__cell_body table__cell_body_actions">
-                            <div>
-                                <button class="actions__button actions__button--edit">
-                                    <div class="icon icon--edit"></div><!--
-                                    -->Изменить
+                            <div class="table__actions">
+                                <button data-clientId="" class="table__action-button table__action-button_edit button_with-icon">
+                                    <span>Изменить</span>
                                 </button>
-                                <button class="actions__button actions__button--delete">
-                                    <div class="icon icon--delete"></div><!--
-                                    -->Удалить
+                                <button data-clientId="" class="table__action-button table__action-button_delete button_with-icon">
+                                    <span>Удалить</span>
                                 </button>
                             </div>
                         </td>
@@ -120,7 +118,7 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="main__load"></div>
+            <div id="table-load-screen" class="main__load" hidden></div>
         </div>
         <button id="add-client-button" class="button button_secondary main__button" hidden>
             <svg  class="main__button__icon" width="22" height="16" viewBox="0 0 23 16" fill="none" xmlns="http://www.w3.org/2000/svg">

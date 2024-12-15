@@ -107,6 +107,7 @@ body {
     flex-direction: column;
     align-items: center;
     overflow: hidden;
+    margin-bottom: 40px;
 }
 
 .main__title {
@@ -133,14 +134,15 @@ body {
     min-width: 728px;
 }
 
-/* .main__load {
+.main__load {
     height: 300px;
-    margin-bottom: 40px;
+    min-width: 728px;
+    width: 100%;
     background-color: #FFFFFF;
-    background-image: url(../img/load.png);
+    background-image: url(../icons/big-loading_firm.svg);
     background-position: center;
     background-repeat: no-repeat;
-} */
+}
 
 .main__button {
     padding: 0px;
@@ -153,6 +155,10 @@ body {
 .main__button__icon {
     margin-right: 10px;
     fill: currentColor;
+}
+
+[hidden] {
+    display: none;
 }
 
 @media (max-width: 1226px) {

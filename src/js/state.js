@@ -1,5 +1,7 @@
 let _activeClient = 0;
 
+let _clients = [];
+
 const _sortState = {
   active: 'id',
   directions: {
@@ -36,6 +38,13 @@ function state() {
       return _sortState;
     },
     set sortState(value) {},
+
+    get clients() {
+      return _clients;
+    },
+    set clients(value) {
+      _clients = value;
+    },
   }
 }
 

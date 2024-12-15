@@ -9,15 +9,16 @@ document.addEventListener('DOMContentLoaded', () => {
   // делаем запрос на сервер
   // рисуем таблицу
   // показываем кнопку
-
-  const addClientButton = document.getElementById('add-client-button');
-  addClientButton.hidden = false;
-  addClientButton.addEventListener('click', modal.handleOpenAddClientModal);
   
+  //Добавляем функционал кнопкам сортировки
   const tableHeader = document.getElementById('table-header');
   tableHeader.querySelectorAll('[data-element-sortButton]').forEach((button) => {
     button.addEventListener('click', handleSortButton);
   })
+
+  const addClientButton = document.getElementById('add-client-button');
+  addClientButton.hidden = false;
+  addClientButton.addEventListener('click', modal.handleOpenAddClientModal);
 
   document.body.querySelectorAll('[data-element-contact]').forEach((contact) => {
     contact.addEventListener('mouseover', showContactTooltip);
@@ -25,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 });
 
-//Обновляет визуал кнопок в зависимости от объекта сортировки
+//Обновляет визуал кнопок сортировки в зависимости от объекта сортировки
 function updateSortButtons(sortState) {
   const { active, directions } = sortState;
   const header = document.getElementById('table-header');
@@ -41,7 +42,7 @@ function updateSortButtons(sortState) {
   });
 }
 
-//Обрабатыает нажатие на кнопку сортировки
+//Обрабатывает нажатие на кнопку сортировки
 function handleSortButton(event) {
   const button = event.target.closest('[data-element-sortButton]');
   const sortField = button.dataset.sortfield;
@@ -55,39 +56,4 @@ function handleSortButton(event) {
   //сортируем клиетов
   //перерисовываем таблицу
 }
-
-//Создаёт тело таблицы
-function createTableBody(data) {
-  return tbody;
-}
-
-function showContactTooltip(event) {
-  const contact = event.target.closest('[data-element-contact]');
-  const contactType = contact.dataset.contacttype;
-  const contactValue = contact.dataset.contactvalue;
-
-  const tooltip = document.createElement('div');
-  tooltip.classList.add('contact-tooltip');
-  tooltip.setAttribute('data-element-contactTooltip', '');
-
-  const tooltipText = document.createElement('div');
-  tooltipText.classList.add('contact-tooltip__text');
-  const text = document.createTextNode(`${contactType}: `);
-  const boldText = document.createElement('span');
-  boldText.classList.add('text-bold');
-  boldText.textContent = contactValue;
-  tooltipText.append(text, boldText);
-
-  const triangle = document.createElement('div');
-  triangle.classList.add('contact-tooltip__triangle');
-
-  tooltip.append(tooltipText, triangle);
-  contact.append(tooltip);
-}
-function hideContactTooltip(event) {
-  const contact = event.target.closest('[data-element-contact]');
-  const tooltip = contact.querySelector('[data-element-contactTooltip]');
-  tooltip.remove();
-}
-
 
