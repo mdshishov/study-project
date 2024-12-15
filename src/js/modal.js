@@ -11,7 +11,7 @@ export function handleOpenAddClientModal() {
 // Открывает форму редактирования клиента
 export async function handleOpenEditClientModal(event) {
   basic.disableClicks();
-  const button = event.target.closest('[data-element-contactAction]');
+  const button = event.target.closest('[data-element-clientAction]');
   button.classList.add('loading');
   const clientId = button.dataset.clientid;
   
@@ -37,6 +37,14 @@ export async function handleOpenEditClientModal(event) {
   openModal('form', state().activeClient);
   button.classList.remove('loading');
   basic.enableClicks();
+}
+
+// Открывает окно с вопросом об удалении клиента (при нажатии кнопки в таблице)
+export function handleOpenDeleteClientModalFromTable(event) {
+  const button = event.target.closest('[data-element-clientAction]');
+  const clientId = button.dataset.clientid;
+  state().activeClient = state().clients.find(({ id }) => id === clientId);
+  openModal('delete');
 }
 
 // Открывает модальное окно в зависимости от переданного типа
@@ -76,12 +84,49 @@ function openModal(type = 'form', data = null) {
   }, 0);
 }
 
-//Создание модального окна с вопросом об удалении пользователя
+// Создаёт модальное окно с вопросом об удалении пользователя
 function createDeleteWindow() {
-  
+  const modalWindow = document.createElement('div');
+  modalWindow.setAttribute('data-element-modalWindow', '');
+  modalWindow.classList.add('modal__window', 'modal__window_delete');
+
+  const header = document.createElement('h2');
+  header.classList.add('modal__window__header');
+  header.textContent = 'Удалить клиента';
+  modalWindow.append(header);
+
+  const message = document.createElement('p');
+  message.classList.add('modal__window__message');
+  message.textContent = 'Вы действительно хотите удалить данного клиента?';
+  modalWindow.append(message);
+
+  const closeButton = document.createElement('button');
+  closeButton.setAttribute('data-element-closeButton', '')
+  closeButton.type = 'button';
+  closeButton.classList.add('form__close-button');
+  closeButton.addEventListener('click', handleCloseModalButton);
+  modalWindow.append(closeButton);
+
+  const confirmButton = document.createElement('button');
+  confirmButton.classList.add('button', 'button_primary', 'button_with-icon', 'form__submit-button');
+  confirmButton.setAttribute('data-element-deleteConfirm', '');
+  confirmButton.addEventListener('click', handleConfirmDeleteClient)
+  const confirmButtonSpan = document.createElement('span');
+  confirmButtonSpan.textContent = 'Удалить';
+  confirmButton.append(confirmButtonSpan);
+  modalWindow.append(confirmButton);
+
+  const cancelButton = document.createElement('button');
+  cancelButton.classList.add('form__cancel-button');
+  cancelButton.type = 'button';
+  cancelButton.textContent = 'Отмена';
+  cancelButton.addEventListener('click', handleCloseModalButton);
+  modalWindow.append(cancelButton);
+
+  return modalWindow;
 }
 
-//Создание модального окна с формой клиента
+// Создаёт модального окна с формой клиента
 function createFormWindow(data = null) {
   const form = document.createElement('form');
   form.setAttribute('data-element-modalWindow', '');
@@ -206,7 +251,7 @@ function createFormWindow(data = null) {
     form.addEventListener('submit', handleEditFormSubmit);
     cancelButton.textContent = 'Удалить клиента';
     cancelButton.addEventListener('click', () => {
-      //ФУНКЦИЯ МОДАЛЬНОГО ОКНА УДАЛЕНИЯ
+      // УДАЛЕНИЕ ИЗ МОДАЛЬНОГО ОКНА
     });
   } else {
     submitButtonSpan.textContent = 'Добавить';
@@ -430,6 +475,34 @@ function getFormData(form) {
   data.contacts = contacts;
 
   return data;
+}
+
+// Подтверждение удаления клиента
+async function handleConfirmDeleteClient(event) {
+  event.preventDefault();
+  basic.disableClicks();
+  const form = event.target.closest('[data-element-modalWindow]');
+  const button = form.querySelector('[data-element-deleteConfirm]');
+  button.classList.add('loading');
+
+  try {
+    const response = await fetch(`http://localhost:3000/api/clients/${state().activeClient.id}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    if ( response.ok ) {
+      handleCloseModalButton(event);
+      table.updateTable();
+      basic.enableClicks();
+    } else {
+      throw new Error(`Ошибка ${response.status}: ${response.statusText}.`);
+    }
+  } catch(error) {
+    basic.showError();
+    basic.enableClicks();
+    throw error;
+    return;
+  }
 }
 
 // --- Закрытие модального окна ---

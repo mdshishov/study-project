@@ -50,6 +50,28 @@
     top: -50px;
 }
 
+.modal__window_delete {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal__window__header {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--black);
+    margin-bottom: 11px;
+    text-align: center;
+}
+.modal__window__message {
+    max-width: 275px;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    color: var(--black);
+    margin-bottom: 25px;
+}
+
 .form {
     padding: 0px;
 }

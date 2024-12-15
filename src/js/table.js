@@ -134,7 +134,7 @@ function createTableRow(clientData) {
 
   const actionEdit = document.createElement('button');
   actionEdit.classList.add('table__action-button', 'table__action-button_edit', 'button_with-icon');
-  actionEdit.setAttribute('data-element-contactAction', '');
+  actionEdit.setAttribute('data-element-clientAction', '');
   actionEdit.setAttribute('data-clientId', clientData.id);
   const actionEditSpan = document.createElement('span');
   actionEditSpan.textContent = 'Изменить';
@@ -144,14 +144,12 @@ function createTableRow(clientData) {
 
   const actionDelete = document.createElement('button');
   actionDelete.classList.add('table__action-button', 'table__action-button_delete', 'button_with-icon');
-  actionDelete.setAttribute('data-element-contactAction', '');
+  actionDelete.setAttribute('data-element-clientAction', '');
   actionDelete.setAttribute('data-clientId', clientData.id);
   const actionDeleteSpan = document.createElement('span');
   actionDeleteSpan.textContent = 'Удалить';
   actionDelete.append(actionDeleteSpan);
-  actionDelete.addEventListener('click', () => {
-    //ФУНКЦИЯ УДАЛЕНИЯ КЛИЕНТА
-  });
+  actionDelete.addEventListener('click', modal.handleOpenDeleteClientModalFromTable);
   actions.append(actionDelete);
 
   tr.append(tdId, tdName, tdCreatedAt, tdUpdatedAt, tdContacts, tdActions);
