@@ -42,12 +42,14 @@
     padding: 22px 30px 27px;
     position: relative;
     top: 0px;
-    transition: top 0.5s;
+    opacity: 1;
+    transition: top 0.5s, opacity 0.5s;
     margin: 20px auto;
     flex-shrink: 0;
 }
 .modal__window.closed {
     top: -50px;
+    opacity: 0;
 }
 
 .modal__window_delete {

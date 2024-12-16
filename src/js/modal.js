@@ -46,6 +46,30 @@ export function handleOpenDeleteClientModalFromTable(event) {
   state().activeClient = state().clients.find(({ id }) => id === clientId);
   openModal('delete');
 }
+// Открывает окно с вопросом об удалении клиента (при нажатии кнопки из модального окна)
+export function handleOpenDeleteClientModalFromModal(event) {
+  const button = event.target.closest('[data-element-cancelForm]');
+  const form = button.closest('[data-element-modalWindow]');
+  const modal = form.closest('[data-element-modal]');
+  const currentData = getFormData(form);
+  Object.assign(state().activeClient, currentData);
+
+  const modalWindow = createDeleteWindow(true);
+  modalWindow.classList.add('closed');
+  setTimeout (() => {
+    form.classList.add('closed');
+
+    setTimeout(() => {
+      form.parentNode.replaceChild(modalWindow, form);
+      modal.addEventListener('click', handleCloseDeleteModal);
+      modal.removeEventListener('click', handleCloseModal);
+
+      setTimeout(() => {
+        modalWindow.classList.remove('closed');
+      }, 10);
+    }, 500);
+  }, 10);
+}
 
 // Открывает модальное окно в зависимости от переданного типа
 function openModal(type = 'form', data = null) {
@@ -58,7 +82,7 @@ function openModal(type = 'form', data = null) {
   modalContent.classList.add('modal__content');
   modal.append(modalContent);
 
-  let modalWindow
+  let modalWindow = null;
   switch (type) {
     case 'form':
       modalWindow = createFormWindow(data);
@@ -81,11 +105,11 @@ function openModal(type = 'form', data = null) {
   setTimeout(() => {
     modal.classList.remove('closed');
     modalWindow.classList.remove('closed');
-  }, 0);
+  }, 10);
 }
 
-// Создаёт модальное окно с вопросом об удалении пользователя
-function createDeleteWindow() {
+// Создаёт модальное окно с вопросом об удалении клиента
+function createDeleteWindow(isFromModal = false) {
   const modalWindow = document.createElement('div');
   modalWindow.setAttribute('data-element-modalWindow', '');
   modalWindow.classList.add('modal__window', 'modal__window_delete');
@@ -120,7 +144,11 @@ function createDeleteWindow() {
   cancelButton.classList.add('form__cancel-button');
   cancelButton.type = 'button';
   cancelButton.textContent = 'Отмена';
-  cancelButton.addEventListener('click', handleCloseModalButton);
+  if (isFromModal) {
+    cancelButton.addEventListener('click', handleCloseDeleteModalButton);
+  } else {
+    cancelButton.addEventListener('click', handleCloseModalButton);
+  }
   modalWindow.append(cancelButton);
 
   return modalWindow;
@@ -243,6 +271,7 @@ function createFormWindow(data = null) {
 
   const cancelButton = document.createElement('button');
   cancelButton.classList.add('form__cancel-button');
+  cancelButton.setAttribute('data-element-cancelForm', '');
   cancelButton.type = 'button';
   buttonsField.append(cancelButton);
 
@@ -250,9 +279,7 @@ function createFormWindow(data = null) {
     submitButtonSpan.textContent = 'Сохранить';
     form.addEventListener('submit', handleEditFormSubmit);
     cancelButton.textContent = 'Удалить клиента';
-    cancelButton.addEventListener('click', () => {
-      // УДАЛЕНИЕ ИЗ МОДАЛЬНОГО ОКНА
-    });
+    cancelButton.addEventListener('click', handleOpenDeleteClientModalFromModal);
   } else {
     submitButtonSpan.textContent = 'Добавить';
     form.addEventListener('submit', handleAddFormSubmit);
@@ -368,7 +395,7 @@ function handleDeleteContactButton(event) {
     if (contactInputs.length === 0) {
       container.classList.add('no-inputs');
     }
-  }, 0);
+  }, 10);
 }
 
 // --- Выпадающий список ---
@@ -535,9 +562,46 @@ function closeModal(modal) {
     setTimeout(() => {
       modal.remove();
     }, 500);
-  }, 0)
+  }, 10)
 }
 
+// --- Закрытие модального окна удаления ---
+// При клике на фон
+function handleCloseDeleteModal(event) {
+  const target = event.target;
+
+  if(target.closest('[data-element-modalWindow]') === null) {
+    const modal = target.closest('[data-element-modal]');
+    const modalWindow = modal.querySelector('[data-element-modalWindow]')
+    closeDeleteModal(modalWindow);
+  }
+}
+// При клике на кнопку
+function handleCloseDeleteModalButton(event) {
+  const target = event.target;
+  const modalWindow = target.closest('[data-element-modalWindow]');
+  closeDeleteModal(modalWindow);
+}
+
+// Закрывает модальное окно
+function closeDeleteModal(modalWindow) {
+  const form = createFormWindow(state().activeClient);
+  const modal = modalWindow.closest('[data-element-modal]');
+  form.classList.add('closed');
+  setTimeout (() => {
+    modalWindow.classList.add('closed');
+
+    setTimeout(() => {
+      modalWindow.parentNode.replaceChild(form, modalWindow);
+      modal.addEventListener('click', handleCloseModal);
+      modal.removeEventListener('click', handleCloseDeleteModal);
+
+      setTimeout(() => {
+        form.classList.remove('closed');
+      }, 20);
+    }, 500);
+  }, 10);
+}
 
 // Показывает сообщение об ошибке при отправке формы
 function showFormErrorMessage(form, message = 'Что-то пошло не так...') {
