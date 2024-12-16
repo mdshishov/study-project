@@ -85,7 +85,7 @@ function createTableRow(clientData) {
 
   const tdUpdatedAt = document.createElement('td');
   tdUpdatedAt.classList.add('table__cell', 'table__cell_body', 'table__cell_body_updated-at');
-  const [tdUpdatedAtDate, tdUpdatedAtTime] = basic.formatDate(clientData.createdAt).split(' ');
+  const [tdUpdatedAtDate, tdUpdatedAtTime] = basic.formatDate(clientData.updatedAt).split(' ');
   tdUpdatedAt.textContent = tdUpdatedAtDate + ' ';
   const tdUpdatedAtSpan = document.createElement('span');
   tdUpdatedAtSpan.classList.add('text-grey-color');
